@@ -27,8 +27,9 @@ headers: {
 //     console.log('the decoded data is: ' + body);
        array = JSON.parse(body);
      //  console.log(getValues(array,'title'));
-       bodyArray = module1.getValues(array,'body');
-
+        bodyArray = module1.getValues(array,'body');
+	questionsIds = module1.getValues(array,'question_id');
+	console.log(questionsIds);
        //firstItem = bodyArray.shift(); //removing one element from the array - testing
        // console.log(firstItem);	
 	for (var bodyElem in bodyArray){
@@ -40,7 +41,7 @@ headers: {
                 	loadedCodes[i] = loadCode(this).text();
            	 });
              };
-        console.log(loadedCodes); 	
+        console.log(loadedCodes); //return the codes out of the questions returned by the API request	
 //      const $ = cheerio.load(getValues(array,'body'));
 //      console.log($('<code>').find();
     });

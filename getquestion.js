@@ -1,9 +1,7 @@
-const cheerio = require('cheerio');
 var request = require('request');
-var module1 = require('./objectKeysVals');
 var url = 'http://api.stackexchange.com/2.2/search?order=desc&tagged=api&sort=activity&site=stackoverflow&filter=withbody';
 var read = require('readline-sync');
-const loadedCodes = [];
+var fs = require('fs');
 var q = read.question('What is your API search enquiry? ', {
   hideEchoBack: false // The typed text on screen is hidden by `*` (default). 
 });
@@ -23,25 +21,15 @@ headers: {
          },
   function(err, res, body) {
      console.log("response.statusCode" + res.statusCode);
-     console.log('server encoded the data as: ' + (res.headers['content-encoding'] || 'identity'))
+     console.log('server encoded the data as: ' + (res.headers['content-encoding'] || 'identity'));
 //     console.log('the decoded data is: ' + body);
        array = JSON.parse(body);
-     //  console.log(getValues(array,'title'));
-        bodyArray = module1.getValues(array,'body');
-	questionsIds = module1.getValues(array,'question_id');
-	console.log(questionsIds);
-       //firstItem = bodyArray.shift(); //removing one element from the array - testing
-       // console.log(firstItem);	
-	for (var bodyElem in bodyArray){
-		//console.log(bodyArray[bodyElem]);       
-		 // loading cheerio
-                //	const loadedCodes = [];
-		const loadCode = cheerio.load(bodyArray[bodyElem]);
-		loadCode('code').each(function(i, elem){
-                	loadedCodes[i] = loadCode(this).text();
-           	 });
-             };
-        console.log(loadedCodes); //return the codes out of the questions returned by the API request	
-//      const $ = cheerio.load(getValues(array,'body'));
-//      console.log($('<code>').find();
-    });
+//	console.log(array); //json format
+//       console.log(typeof(body)); return string
+//   save body result into a json file
+      fs.writeFile('data.json',body, function(err){
+         if (err) throw err;
+        });
+
+      });
+

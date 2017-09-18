@@ -1,13 +1,13 @@
-//exports.detectCode = function(jsonObj) {
+exports.detectCode = function(body) {
+//let us says we have an html with possible code blocks passed to here with html text content
+//we need to return an array of code blocks only
 
-
-var jsonObj = [{"items":[{"tags":["php","api],"owner":{"reputation":2409}},"body": "<p>Today I was trying to <code> some code </code>"]}];
-for (var index in jsonObj){
-var item = array[idx];
-	for (var key in item) {
-	  var value = item[key];
-	}
-    }
-
-return code;
-};
+const cheerio = require('cheerio');
+const loadedCodes = [];
+const loadCode = cheerio.load(body);
+	loadCode('code').each(function(i, elem){
+               	loadedCodes[i] = loadCode(this).text();
+       	 });
+console.log(loadedCodes);
+return loadedCodes;
+    };

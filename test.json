@@ -1,0 +1,62 @@
+{
+  "items": [
+    {
+      "tags": [
+        "android",
+        "ios",
+        "facebook",
+        "facebook-graph-api"
+      ],
+      "owner": {
+        "reputation": 9694,
+        "user_id": 3059001,
+        "user_type": "registered",
+        "accept_rate": 68,
+        "profile_image": "https://i.stack.imgur.com/JVktN.jpg?s=128&g=1",
+        "display_name": "Jack",
+        "link": "https://stackoverflow.com/users/3059001/jack"
+      },
+      "is_answered": true,
+      "view_count": 219474,
+      "protected_date": 1402745643,
+      "accepted_answer_id": 26135600,
+      "answer_count": 17,
+      "score": 467,
+      "last_activity_date": 1478347950,
+      "creation_date": 1390556540,
+      "last_edit_date": 1458297121,
+      "question_id": 21329250,
+      "link": "https://stackoverflow.com/questions/21329250/the-developers-of-this-app-have-not-set-up-this-app-properly-for-facebook-login",
+      "title": "The developers of this app have not set up this app properly for Facebook Login?",
+      "body": "<p>I would like to do something like facepile using the graph api with open graph 2 actions : from a custom object and a custom object, give me the friends (using my facebook application) that did this action on this object.</p>\n\n<p>The problem is that using FQL, I cannot query custom objects and actions. Using the graph API, I cannot find a way to intersect the list of my friends with the object I'm interested in.</p>\n\n<p>The best I could do was the following using the batch mode of the graph API : </p>\n\n<pre><code>batch=[\n  // First we get the list of friends that are using my facebook application\n  { \"method\": \"GET\", \"relative_url\": \"fql?q=SELECT+uid+FROM+user+WHERE+uid+IN+(SELECT+uid1+FROM+friend+WHERE+uid2=me())+AND+is_app_user=1+LIMIT+0,49\", \"name\": \"friends\"},\n  // Then query each friend to get the list of objects that went through my namespace:testaction\n  { \"method\": \"GET\", \"relative_url\": \"{result=friends:$.data.0.uid}/namespace:testaction\" },\n  { \"method\": \"GET\", \"relative_url\": \"{result=friends:$.data.1.uid}/namespace:testaction\" },\n  ...\n  { \"method\": \"GET\", \"relative_url\": \"{result=friends:$.data.49.uid}/namespace:testaction\" }\n]\n</code></pre>\n\n<p>It's quite inefficient and does not fully resolve my issue since : </p>\n\n<ul>\n<li>I still have to filter the results to get only the one that matches\nthe object I want</li>\n<li>If there is a large number of objects in namespace:testaction, I have to go through paging, doing more queries (I try to minimize the number of queries)</li>\n</ul>\n\n<p>Do you see a better way to do this ?</p>\n"
+
+    },
+    {
+      "tags": [
+        "ios",
+        "ios4",
+        "facebook",
+        "facebook-graph-api"
+      ],
+      "owner": {
+        "reputation": 3900,
+        "user_id": 286791,
+        "user_type": "registered",
+        "accept_rate": 66,
+        "profile_image": "https://graph.facebook.com/500020432/picture?type=large",
+        "display_name": "TMC",
+        "link": "https://stackoverflow.com/users/286791/tmc"
+      },
+      "is_answered": true,
+      "view_count": 39095,
+      "accepted_answer_id": 4626018,
+      "answer_count": 4,
+      "score": 343,
+      "last_activity_date": 1415674612,
+      "creation_date": 1294391465,
+      "question_id": 4623974,
+      "link": "https://stackoverflow.com/questions/4623974/design-for-facebook-authentication-in-an-ios-app-that-also-accesses-a-secured-we",
+      "title": "Design for Facebook authentication in an iOS app that also accesses a secured web service",
+      "body": "<p><strong>Goal:</strong>\nAllow a user to authentication with Facebook into an iOS application which requires access to a protected web service that I'm running.</p>\n\n<p><strong>Assumptions:</strong>\nThere is a native authentication (and registration) system in place for those users that opt not to use Facebook for sign in.</p>\n\n<p><strong>Details:</strong></p>\n\n<ul>\n<li>Assume we want to offer the option for a user to sign in with Facebook without creating a separate account/credential for our system.</li>\n<li>Because we support our own native auth mechanism (username and password) we have our own user IDs and issue an authentication token that is used for subsequent interactions after the initial credential validation.</li>\n</ul>\n\n<p>I'm surprised that Facebook doesn't have best practices for this in their developer documentation. All the existing documentation is either assuming you are building FB auth into a website, or a standalone mobile app with no service that requires authentication.</p>\n\n<p>Here's my initial thoughts on how this would be designed but want validation on whether it's correct. </p>\n\n<ol>\n<li>Client pops the Facebook iOS Login</li>\n<li>UI User signs in with Facebook credentials and gets access token</li>\n<li>iOS App passes access token to our server</li>\n<li><p>Our server talks to FB graph API using access token to (a) validate the token and (b) get the FB user ID for that access token. </p>\n\n<p>e.g. Our server would call <a href=\"https://graph.facebook.com/me/?access_token=XYZ\" rel=\"noreferrer\">https://graph.facebook.com/me/?access_token=XYZ</a> which would return profile info in a JSON object</p></li>\n<li><p>Assuming it's valid, our server extracts the User ID from the JSON object and checks whether the user already has an account. If so, we issue our own auth ticket to client to use for that session.  If user doesn't have an account, we create a new one with the Facebook User ID, assign our own unique UserID and issue our auth ticket.</p></li>\n<li>Client then passes auth ticket back on subsequent interactions that need authentication.</li>\n</ol>\n\n<p>This seems like the right approach to me but not sure if I'm missing something insanely basic and going down the wrong (complicated) path.</p>\n"
+    }
+]}

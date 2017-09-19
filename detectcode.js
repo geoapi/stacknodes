@@ -13,6 +13,6 @@ const loadCode = cheerio.load(body);
 	loadCode('code').each(function(i, elem){
                	loadedCodes[i] = loadCode(this).text();
        	 });
-console.log(loadedCodes);
+//console.log(loadedCodes);
 return loadedCodes;
     };

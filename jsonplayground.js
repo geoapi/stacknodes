@@ -18,9 +18,12 @@ for (var index in jsonObj){
 var item = jsonObj[index];
 	for (var key in item) {
 	  var value = item[key];
-	  //console.log(value);
+	  console.log(value);
 	}
     }
-
+jsonObj.items.push({"tags":["aspaaaaaaaaa","aaaaaaaapi"],
+                "owner":{"reputation":9},
+                "body":"<p>i hello wording</code>"});
+console.log(jsonObj);
 //return code;
 

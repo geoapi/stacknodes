@@ -4,6 +4,8 @@
 exports.filterResult = function(arg1){
 var dc = require('./detectcode');
 var fs = require('fs');
+var detectLang = require('lang-detector');
+
 fs.readFile('data.json', function (err, content){
    if (err) throw err;
    var jsonobj = JSON.parse(content);
@@ -13,6 +15,12 @@ fs.readFile('data.json', function (err, content){
    var fobj = {items:[]};
    for ( var i in jsonobj.items){ 
         var codeblks = dc.detectCode(jsonobj.items[i]["body"]);
+	stro = JSON.stringify(codeblks);
+       // loc = ((stro.match(new RegExp("/n", "g")) || []).length); doesn't work for codes
+
+//	console.log(loc);
+	var detectedObj = detectLang(stro, {statistics:true});
+//	console.log(detectedObj);
         if (codeblks && codeblks.length) 
            {
 	       fobj.items.push(
@@ -21,7 +29,8 @@ fs.readFile('data.json', function (err, content){
 	        "creation_date": jsonobj.items[i]["creation_date"],
 		"extraction_date": new Date(),
 		"title":jsonobj.items[i]["title"],
-		"codeblocks":codeblks 
+		"codeblocks":codeblks,
+		"languages":detectedObj
               }
                               );	
 	   }

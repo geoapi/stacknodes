@@ -1,10 +1,13 @@
+//Takes query e.g. facebook API and returns all the search results of relevant questions which are tagged with an api tag, the first 100 results will be returned and saved as a json file
+//  q is the query
+exports.getQuestions = function(q){
 var request = require('request');
-var url = 'http://api.stackexchange.com/2.2/search?order=desc&tagged=api&sort=activity&site=stackoverflow&filter=withbody';
-var read = require('readline-sync');
-var fs = require('fs');
-var q = read.question('What is your API search enquiry? ', {
-  hideEchoBack: false // The typed text on screen is hidden by `*` (default). 
-});
+var url = 'http://api.stackexchange.com/2.2/search?order=desc&tagged=api&sort=votes&site=stackoverflow&filter=withbody&pagesize=100';
+//var read = require('readline-sync');
+//var fs = require('fs');
+//var q = read.question('What is your API search enquiry? ', {
+//  hideEchoBack: false // The typed text on screen is hidden by `*` (default). 
+//});
 
 
 console.log(q);
@@ -33,3 +36,4 @@ headers: {
 
       });
 
+}

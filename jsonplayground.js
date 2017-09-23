@@ -27,3 +27,12 @@ jsonObj.items.push({"tags":["aspaaaaaaaaa","aaaaaaaapi"],
 console.log(jsonObj);
 //return code;
 
+
+/// concatination of two requests in new array with all information
+var firstr = [{ items: {tags:["tag1","tag2"], body:"some body"},has_more:true,quota_max:300,quota_remaining:281 }],secondr = [{ items: {tags:["tag4","tag42"], body:"some other body with <pre><code> some come</pre></code>"},has_more:true,quota_max:300,quota_remaining:271 }], result = [];
+
+//result = result.push(firstrequest.items);
+var result= firstr.concat(secondr);
+
+for (i in result){ console.log(result[i])}
+
